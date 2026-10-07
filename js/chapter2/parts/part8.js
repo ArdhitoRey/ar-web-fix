@@ -30,13 +30,13 @@ if (dom.soundV8 && !dom.soundV8._guardInstalled) {
 
 function showPlayPart8Button() {
     if (isPlayButtonActive) return;
-    console.log('✨ [Part 8] Memunculkan tombol Play 3D dengan animasi denyut...');
+    console.log('✨ [Part 8] Memunculkan tombol Play 3D tersinkronisasi...');
     isPlayButtonActive = true;
     isNavigatingQuiz = false;
 
     if (dom.btnPlayPart8_3D) {
         dom.btnPlayPart8_3D.setAttribute('visible', true);
-        dom.btnPlayPart8_3D.setAttribute('scale', '1 1 1');
+        dom.btnPlayPart8_3D.setAttribute('scale', '0.15 0.15 0.15');
 
         // Reset opacity to 0 before starting fade-in
         const mesh = dom.btnPlayPart8_3D.getObject3D('mesh');
@@ -57,9 +57,10 @@ function showPlayPart8Button() {
 
         setTimeout(() => {
             if (isPlayButtonActive && !isNavigatingQuiz) {
+                dom.btnPlayPart8_3D.setAttribute('scale', '1 1 1');
                 dom.btnPlayPart8_3D.emit('play-pulse-start', null, false);
             }
-        }, 350);
+        }, 650);
     }
 
     if (dom.btnPlayPart8_Plane) {
@@ -86,7 +87,12 @@ function hidePlayPart8Button() {
     if (dom.btnPlayPart8_3D) {
         dom.btnPlayPart8_3D.setAttribute('visible', false);
         const mesh = dom.btnPlayPart8_3D.getObject3D('mesh');
-        if (mesh) mesh.visible = false;
+        if (mesh) {
+            mesh.visible = false;
+            if (mesh.material) {
+                mesh.material.opacity = 0;
+            }
+        }
     }
     if (dom.btnPlayPart8_Plane) {
         dom.btnPlayPart8_Plane.setAttribute('visible', false);
@@ -205,26 +211,7 @@ function checkPlayButtonInteraction(clientX, clientY) {
     const camera = dom.arScene.camera;
     if (!camera) return false;
 
-    try {
-        const btnWorldPos = new THREE.Vector3();
-        dom.btnPlayPart8_3D.object3D.getWorldPosition(btnWorldPos);
-
-        const screenPos = btnWorldPos.clone().project(camera);
-        if (screenPos.z < 1) {
-            const screenX = (screenPos.x * 0.5 + 0.5) * window.innerWidth;
-            const screenY = (-screenPos.y * 0.5 + 0.5) * window.innerHeight;
-            const dist = Math.hypot(clientX - screenX, clientY - screenY);
-
-            if (dist < 120) {
-                console.log(`🎯 [Touch Target Match] Screen-space tap on Part 8 Play Button! dist=${dist.toFixed(1)}px`);
-                handleNavigateToQuiz();
-                return true;
-            }
-        }
-    } catch (err) {
-        console.warn('Play button screen projection check warning:', err);
-    }
-
+    // 1. Direct Three.js Raycaster Check (paling presisi menguji bidang geometri 3D tombol)
     try {
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2(
@@ -245,6 +232,33 @@ function checkPlayButtonInteraction(clientX, clientY) {
         }
     } catch (err) {
         console.warn('Play button raycaster check warning:', err);
+    }
+
+    // 2. Screen-Space Projection Check (radius ketat yang dinamis mengikuti proyeksi ukuran tombol di layar)
+    try {
+        const btnWorldPos = new THREE.Vector3();
+        dom.btnPlayPart8_3D.object3D.getWorldPosition(btnWorldPos);
+
+        const screenPos = btnWorldPos.clone().project(camera);
+        if (screenPos.z < 1) {
+            const screenX = (screenPos.x * 0.5 + 0.5) * window.innerWidth;
+            const screenY = (-screenPos.y * 0.5 + 0.5) * window.innerHeight;
+            const dist = Math.hypot(clientX - screenX, clientY - screenY);
+
+            // Hitung radius proyeksi tombol (lebar 0.097 3D unit)
+            const edgePos = btnWorldPos.clone().add(new THREE.Vector3(0.0485, 0, 0));
+            const screenEdge = edgePos.project(camera);
+            const projectedRadius = Math.abs((screenEdge.x - screenPos.x) * 0.5 * window.innerWidth);
+            const hitRadius = Math.max(18, Math.min(45, projectedRadius * 1.15));
+
+            if (dist <= hitRadius) {
+                console.log(`🎯 [Touch Target Match] Screen-space tap on Part 8 Play Button! dist=${dist.toFixed(1)}px <= ${hitRadius.toFixed(1)}px`);
+                handleNavigateToQuiz();
+                return true;
+            }
+        }
+    } catch (err) {
+        console.warn('Play button screen projection check warning:', err);
     }
 
     return false;
@@ -347,6 +361,19 @@ async function startPart8Videos() {
             }
         });
     });
+
+    // SINKRONISASI TOMBOL PLAY SAAT MUNCUL DI DETIK KE-4.0 VIDEO ANAK KECIL (PERSIS SEPERTI POP-IN DI VIDEO)
+    const vidAnak = document.getElementById('vid-anak-kecil-part8');
+    if (vidAnak) {
+        const syncButtonOnAppear = function () {
+            if (vidAnak.currentTime >= 4.0 && !isPlayButtonActive && state.currentPart === 8 && state.isPlaying) {
+                console.log(`🎬 [Part 8] Tombol Play mulai muncul di video anakkecil.mp4 (detik ${vidAnak.currentTime.toFixed(2)}s) -> Memicu scale pop-in & fade-in tombol play 3D!`);
+                showPlayPart8Button();
+                vidAnak.removeEventListener('timeupdate', syncButtonOnAppear);
+            }
+        };
+        vidAnak.addEventListener('timeupdate', syncButtonOnAppear);
+    }
     
     await new Promise(r => setTimeout(r, 150));
     if (dom.containerPart8 && !wasVisible) fadeInContainer(dom.containerPart8, 400);
@@ -461,16 +488,7 @@ export function initPart8() {
         }
     }, { passive: false, capture: true });
 
-    // Listener pada scene canvas sebagai fallback jika part8 selesai
-    const sceneEl = document.getElementById('arScene');
-    if (sceneEl) {
-        sceneEl.addEventListener('click', () => {
-            if (!window.__quizActiveSeamless && state.part8Finished && state.currentPart === 8) {
-                console.log('🐚 [Part 8] Ketukan pada layar saat Part 8 selesai! Menuju kuis...');
-                handleNavigateToQuiz();
-            }
-        });
-    }
+
 
     dom.target8.addEventListener('targetFound', () => {
         state.isTargetInView[8] = true;

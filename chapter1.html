@@ -144,7 +144,7 @@
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity id="target1" mindar-image-target="targetIndex: 0">
-            <a-entity id="video-container-part1" visible="false">
+            <a-entity id="video-container-part1" visible="false" scale="1.414 1.414 1" data-base-scale="1.414 1.414 1">
                 <a-video id="video-laut" src="#vid-laut" position="0 0 0.10" height="1" width="1"
                     material="shader: chromakey-advanced; src: #vid-laut; transparent: true; side: double"></a-video>
                 <a-video id="video-kapal" src="#vid-kapal" position="0 0 0.20" height="1" width="1"
@@ -159,7 +159,7 @@
         </a-entity>
 
         <a-entity id="target2" mindar-image-target="targetIndex: 1">
-            <a-entity id="video-container-part2" visible="false">
+            <a-entity id="video-container-part2" visible="false" scale="1.62 1.62 1" data-base-scale="1.62 1.62 1">
                 <a-video id="video-batu2" src="#vid-batu2" position="0 0 0.10" height="1" width="1"
                     material="shader: chromakey-gentle; src: #vid-batu2; transparent: true; side: double"></a-video>
                 <a-video id="video-orang" src="#vid-orang" position="0 0 0.20" height="1" width="1"

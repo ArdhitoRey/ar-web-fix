@@ -128,7 +128,8 @@
 
     <div class="status-bar" id="statusBar">Mencari marker...</div>
 
-    <div class="reset-button" id="resetButton" role="button" tabindex="0" title="Ulangi Part 1" aria-label="Ulangi Part 1">
+    <div class="reset-button" id="resetButton" role="button" tabindex="0" title="Ulangi Part 1"
+        aria-label="Ulangi Part 1">
         <img src="./addon-image/navigation/repeat-button-crop.png" alt="Ulangi" draggable="false" />
     </div>
 
@@ -287,24 +288,26 @@
                 <!-- Urutan layer Part 8: Kolam -> Anak Kecil -> Mascot -> teks-part8 -->
                 <a-video id="video-kolam-part8" src="#vid-kolam-part8" position="0 0 0.10" height="1" width="1"
                     material="shader: chromakey-advanced; src: #vid-kolam-part8; transparent: true; side: double; depthWrite: false"></a-video>
-                <a-video id="video-anak-kecil-part8" src="#vid-anak-kecil-part8" position="0 0 0.15" height="1" width="1"
+                <a-video id="video-anak-kecil-part8" src="#vid-anak-kecil-part8" position="0 0 0.15" height="1"
+                    width="1"
                     material="shader: chromakey-magenta; src: #vid-anak-kecil-part8; transparent: true; side: double; depthWrite: false"></a-video>
                 <a-video id="video-mascot-part8" src="#vid-mascot-part8" position="0 0 0.20" height="1" width="1"
                     material="shader: chromakey-advanced; src: #vid-mascot-part8; transparent: true; side: double; depthWrite: false"></a-video>
                 <a-video id="video-teks-part8" src="#vid-teks-part8" position="0 0 0.25" height="1" width="1"
                     material="shader: chromakey-neon; src: #vid-teks-part8; transparent: true; side: double; depthWrite: false"></a-video>
 
-                <!-- 3D Play Button (Menuju Kuis) -->
-                <a-image id="btn-play-part8-3d" class="clickable" src="#img-part8-play-btn" position="0 -0.32 0.30"
-                    height="0.14" width="0.14"
+                <!-- 3D Play Button (Menimpa tombol play pada papan anak kecil di video Chapter 2 Part 8 dengan animasi pop-in scale & denyut persis seperti final score) -->
+                <a-image id="btn-play-part8-3d" class="clickable" src="#img-part8-play-btn" position="-0.052 0.182 0.16"
+                    height="0.099" width="0.099"
                     material="transparent: true; opacity: 0; alphaTest: 0.01; side: double; depthWrite: false"
                     visible="false"
-                    animation__fade="property: material.opacity; from: 0; to: 1; dur: 300; easing: easeOutQuad; startEvents: play-fade-in"
-                    animation__pulse="property: scale; from: 1 1 1; to: 1.18 1.18 1; dir: alternate; dur: 750; easing: easeInOutSine; loop: true; startEvents: play-pulse-start"></a-image>
+                    animation__fade="property: material.opacity; from: 0; to: 1; dur: 450; easing: easeOutCubic; startEvents: play-fade-in"
+                    animation__scale="property: scale; from: 0.15 0.15 0.15; to: 1 1 1; dur: 600; easing: easeOutBack; startEvents: play-fade-in"
+                    animation__pulse="property: scale; from: 1 1 1; to: 1.12 1.12 1; dir: alternate; dur: 800; easing: easeInOutSine; loop: true; startEvents: play-pulse-start"></a-image>
 
-                <!-- Transparent hit plane for 3D Play Button -->
-                <a-plane id="btn-play-part8-plane" class="clickable" position="0 -0.32 0.32" width="0.28"
-                    height="0.28" material="opacity: 0.001; transparent: true; depthWrite: false"
+                <!-- Transparent hit plane for 3D Play Button (Sentuhan responsif di layar) -->
+                <a-plane id="btn-play-part8-plane" class="clickable" position="-0.052 0.182 0.17" width="0.10"
+                    height="0.10" material="opacity: 0.001; transparent: true; depthWrite: false"
                     visible="false"></a-plane>
             </a-entity>
 
@@ -317,7 +320,8 @@
 
                 <!-- Quiz 1 Entity Group -->
                 <a-entity id="quiz-group-1" visible="false">
-                    <a-image id="quiz-pertanyaan-1" src="#img-quiz-pertanyaan-1" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-1" src="#img-quiz-pertanyaan-1" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-1-benar" src="#vid-quiz1-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz1-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -327,7 +331,8 @@
 
                 <!-- Quiz 2 Entity Group -->
                 <a-entity id="quiz-group-2" visible="false">
-                    <a-image id="quiz-pertanyaan-2" src="#img-quiz-pertanyaan-2" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-2" src="#img-quiz-pertanyaan-2" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-2-benar" src="#vid-quiz2-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz2-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -337,7 +342,8 @@
 
                 <!-- Quiz 3 Entity Group -->
                 <a-entity id="quiz-group-3" visible="false">
-                    <a-image id="quiz-pertanyaan-3" src="#img-quiz-pertanyaan-3" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-3" src="#img-quiz-pertanyaan-3" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-3-benar" src="#vid-quiz3-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz3-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -347,7 +353,8 @@
 
                 <!-- Quiz 4 Entity Group -->
                 <a-entity id="quiz-group-4" visible="false">
-                    <a-image id="quiz-pertanyaan-4" src="#img-quiz-pertanyaan-4" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-4" src="#img-quiz-pertanyaan-4" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-4-benar" src="#vid-quiz4-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz4-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -357,7 +364,8 @@
 
                 <!-- Quiz 5 Entity Group -->
                 <a-entity id="quiz-group-5" visible="false">
-                    <a-image id="quiz-pertanyaan-5" src="#img-quiz-pertanyaan-5" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-5" src="#img-quiz-pertanyaan-5" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-5-benar" src="#vid-quiz5-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz5-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -372,31 +380,41 @@
                 </a-entity>
 
                 <!-- 3D Choice Clickable Planes -->
-                <a-plane id="btn-choice-left-3d" class="clickable" quiz-choice-left position="-0.20 -0.012 0.22" width="0.38" height="0.34"
-                    material="opacity: 0.001; transparent: true; depthWrite: false; side: double" visible="false"></a-plane>
+                <a-plane id="btn-choice-left-3d" class="clickable" quiz-choice-left position="-0.20 -0.012 0.22"
+                    width="0.38" height="0.34"
+                    material="opacity: 0.001; transparent: true; depthWrite: false; side: double"
+                    visible="false"></a-plane>
 
-                <a-plane id="btn-choice-right-3d" class="clickable" quiz-choice-right position="0.20 -0.012 0.22" width="0.38" height="0.34"
-                    material="opacity: 0.001; transparent: true; depthWrite: false; side: double" visible="false"></a-plane>
+                <a-plane id="btn-choice-right-3d" class="clickable" quiz-choice-right position="0.20 -0.012 0.22"
+                    width="0.38" height="0.34"
+                    material="opacity: 0.001; transparent: true; depthWrite: false; side: double"
+                    visible="false"></a-plane>
 
                 <!-- 3D Next Button -->
-                <a-image id="btn-next-quiz-3d" class="clickable" quiz-next-trigger src="#img-quiz-next-btn" position="0 -0.38 0.22" height="0.25" width="0.25"
-                    material="transparent: true; opacity: 0; alphaTest: 0.01; side: double; depthWrite: false" visible="false"
+                <a-image id="btn-next-quiz-3d" class="clickable" quiz-next-trigger src="#img-quiz-next-btn"
+                    position="0 -0.38 0.22" height="0.25" width="0.25"
+                    material="transparent: true; opacity: 0; alphaTest: 0.01; side: double; depthWrite: false"
+                    visible="false"
                     animation__fade="property: material.opacity; from: 0; to: 1; dur: 600; easing: easeOutCubic; startEvents: trigger-fade-in"
                     animation__scale="property: scale; from: 0.2 0.2 0.2; to: 1 1 1; dur: 650; easing: easeOutBack; startEvents: trigger-fade-in"
                     animation__pulse="property: scale; dir: alternate; dur: 850; easing: easeInOutSine; loop: true; to: 1.10 1.10 1; startEvents: trigger-pulse-start"></a-image>
 
-                <a-plane id="btn-next-plane-3d" class="clickable" quiz-next-trigger position="0 -0.38 0.24" width="0.36" height="0.32"
-                    material="opacity: 0.001; transparent: true; depthWrite: false" visible="false"></a-plane>
+                <a-plane id="btn-next-plane-3d" class="clickable" quiz-next-trigger position="0 -0.38 0.24" width="0.36"
+                    height="0.32" material="opacity: 0.001; transparent: true; depthWrite: false"
+                    visible="false"></a-plane>
 
                 <!-- 3D Home Button for Final Score -->
-                <a-image id="btn-home-score-3d" class="clickable" quiz-home-trigger src="#img-quiz-home-btn" position="-0.024 -0.112 0.20" height="0.18" width="0.18"
-                    material="transparent: true; opacity: 0; alphaTest: 0.01; side: double; depthWrite: false" visible="false"
+                <a-image id="btn-home-score-3d" class="clickable" quiz-home-trigger src="#img-quiz-home-btn"
+                    position="-0.024 -0.112 0.20" height="0.18" width="0.18"
+                    material="transparent: true; opacity: 0; alphaTest: 0.01; side: double; depthWrite: false"
+                    visible="false"
                     animation__fade="property: material.opacity; from: 0; to: 1; dur: 450; easing: easeOutCubic; startEvents: home-fade-in"
                     animation__scale="property: scale; from: 0.2 0.2 0.2; to: 1 1 1; dur: 550; easing: easeOutBack; startEvents: home-fade-in"
                     animation__pulse="property: scale; dir: alternate; dur: 850; easing: easeInOutSine; loop: true; to: 1.12 1.12 1; startEvents: home-pulse-start"></a-image>
 
-                <a-plane id="btn-home-score-plane" class="clickable" quiz-home-trigger position="-0.024 -0.112 0.22" width="0.30" height="0.30"
-                    material="opacity: 0.001; transparent: true; depthWrite: false" visible="false"></a-plane>
+                <a-plane id="btn-home-score-plane" class="clickable" quiz-home-trigger position="-0.024 -0.112 0.22"
+                    width="0.30" height="0.30" material="opacity: 0.001; transparent: true; depthWrite: false"
+                    visible="false"></a-plane>
             </a-entity>
         </a-entity>
 
@@ -509,53 +527,85 @@
             <audio id="sound-v8" src="./sounds/chapter2/output-sounds/sound-v8.MP3" preload="auto"></audio>
 
             <!-- Quiz Assets for Seamless Part 8 Transition -->
-            <img id="img-quiz-pertanyaan-1" src="./compressed_ultra-videos/chapter2/quiz/quiz1/pertanyaan.PNG" crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-2" src="./compressed_ultra-videos/chapter2/quiz/quiz2/pertanyaan.PNG" crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-3" src="./compressed_ultra-videos/chapter2/quiz/quiz3/pertanyaan.PNG" crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-4" src="./compressed_ultra-videos/chapter2/quiz/quiz4/pertanyaan.PNG" crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-5" src="./compressed_ultra-videos/chapter2/quiz/quiz5/pertanyaan.PNG" crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-1" src="./compressed_ultra-videos/chapter2/quiz/quiz1/pertanyaan.PNG"
+                crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-2" src="./compressed_ultra-videos/chapter2/quiz/quiz2/pertanyaan.PNG"
+                crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-3" src="./compressed_ultra-videos/chapter2/quiz/quiz3/pertanyaan.PNG"
+                crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-4" src="./compressed_ultra-videos/chapter2/quiz/quiz4/pertanyaan.PNG"
+                crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-5" src="./compressed_ultra-videos/chapter2/quiz/quiz5/pertanyaan.PNG"
+                crossorigin="anonymous" />
 
             <img id="img-quiz-next-btn" src="./addon-image/quiz/next-button-crop.png" crossorigin="anonymous" />
             <img id="img-quiz-home-btn" src="./addon-image/quiz/home-button-crop.png" crossorigin="anonymous" />
 
-            <video id="vid-quiz1-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz1/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz1-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz1/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz1-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz1/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz1-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz1/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
-            <video id="vid-quiz2-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz2/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz2-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz2/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz2-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz2/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz2-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz2/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
-            <video id="vid-quiz3-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz3/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz3-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz3/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz3-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz3/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz3-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz3/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
-            <video id="vid-quiz4-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz4/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz4-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz4/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz4-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz4/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz4-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz4/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
-            <video id="vid-quiz5-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz5/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz5-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz5/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz5-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz5/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz5-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz5/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
-            <video id="vid-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/video/score.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/video/score.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
-            <audio id="sound-quiz1-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz1/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz1-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz1/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz1-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz1/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz1-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz1/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz1-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz1/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz1-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz1/sound/salah.mp3"
+                preload="auto"></audio>
 
-            <audio id="sound-quiz2-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz2/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz2-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz2/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz2-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz2/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz2-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz2/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz2-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz2/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz2-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz2/sound/salah.mp3"
+                preload="auto"></audio>
 
-            <audio id="sound-quiz3-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz3/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz3-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz3/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz3-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz3/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz3-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz3/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz3-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz3/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz3-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz3/sound/salah.mp3"
+                preload="auto"></audio>
 
-            <audio id="sound-quiz4-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz4/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz4-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz4/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz4-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz4/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz4-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz4/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz4-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz4/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz4-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz4/sound/salah.mp3"
+                preload="auto"></audio>
 
-            <audio id="sound-quiz5-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz5/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz5-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz5/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz5-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz5/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz5-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz5/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz5-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz5/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz5-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz5/sound/salah.mp3"
+                preload="auto"></audio>
 
-            <audio id="sound-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/sound/sound.mp3" preload="auto"></audio>
+            <audio id="sound-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/sound/sound.mp3"
+                preload="auto"></audio>
         </a-assets>
     </a-scene>
 
