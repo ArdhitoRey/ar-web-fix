@@ -27,25 +27,26 @@ AFRAME.registerShader('chromakey-advanced', {
                 varying vec2 vUv;
                 void main() {
                     vec4 color = texture2D(tex, vUv);
-                    float greenDominance = color.g - max(color.r, color.b);
-                    float isGreen = 0.0;
-                    if (color.g > 0.38 && color.g > color.r * 1.15 && color.g > color.b * 1.15) isGreen = 1.0;
-                    if (color.g > 0.52 && greenDominance > 0.16) isGreen = 1.0;
-                    if (greenDominance > 0.12 && color.g > 0.30) isGreen = 1.0;
+                    
+                    // Dominasi warna hijau terhadap merah dan biru
+                    float maxRB = max(color.r, color.b);
+                    float greenDiff = color.g - maxRB;
+                    
+                    // Transisi halus feathered (tidak ekstrem, tepi lembut & anti-aliased):
+                    float isGreen = smoothstep(0.04, 0.28, greenDiff) * smoothstep(0.30, 0.60, color.g);
+                    
+                    // Perlindungan mutlak area gelap / mata / pupil / garis hitam
+                    float darkProtection = smoothstep(0.02, 0.10, max(color.g, maxRB));
+                    isGreen *= darkProtection;
                     
                     float alpha = 1.0 - isGreen;
-                    if (greenDominance > 0.08 && greenDominance < 0.22 && color.g > 0.28) {
-                        float smoothFactor = smoothstep(0.08, 0.22, greenDominance);
-                        alpha = 1.0 - smoothFactor;
-                    }
                     
+                    // Despill halus menghilangkan sisa border/halo hijau di tepian objek
                     vec3 finalColor = color.rgb;
-                    if (alpha > 0.05 && alpha < 0.95 && greenDominance > 0.04) {
-                        float despillStrength = (1.0 - alpha) * 0.85;
-                        finalColor.g = mix(finalColor.g, (finalColor.r + finalColor.b) * 0.5, despillStrength);
+                    if (alpha < 0.98 && finalColor.g > maxRB) {
+                        float despillWeight = 1.0 - smoothstep(0.70, 0.98, alpha);
+                        finalColor.g = mix(finalColor.g, maxRB, despillWeight);
                     }
-                    if (alpha > 0.4 && greenDominance > 0.04) finalColor.g *= 0.88;
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
                     
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -114,25 +115,21 @@ AFRAME.registerShader('chromakey-gentle', {
                 varying vec2 vUv;
                 void main() {
                     vec4 color = texture2D(tex, vUv);
-                    float greenDominance = color.g - max(color.r, color.b);
-                    float isGreen = 0.0;
-                    if (color.g > 0.5 && color.g > color.r * 1.4 && color.g > color.b * 1.4) isGreen = 1.0;
-                    if (color.g > 0.7 && greenDominance > 0.3) isGreen = 1.0;
-                    if (greenDominance > 0.2 && color.g > 0.45) isGreen = 1.0;
+                    float maxRB = max(color.r, color.b);
+                    float greenDiff = color.g - maxRB;
+                    
+                    float isGreen = smoothstep(0.05, 0.32, greenDiff) * smoothstep(0.35, 0.65, color.g);
+                    
+                    float darkProtection = smoothstep(0.02, 0.10, max(color.g, maxRB));
+                    isGreen *= darkProtection;
                     
                     float alpha = 1.0 - isGreen;
-                    if (greenDominance > 0.15 && greenDominance < 0.3 && color.g > 0.4) {
-                        float smoothFactor = smoothstep(0.15, 0.3, greenDominance);
-                        alpha = 1.0 - smoothFactor;
-                    }
                     
                     vec3 finalColor = color.rgb;
-                    if (alpha > 0.2 && alpha < 0.9 && greenDominance > 0.1) {
-                        float despillStrength = (1.0 - alpha) * 0.5;
-                        finalColor.g = mix(finalColor.g, (finalColor.r + finalColor.b) * 0.5, despillStrength);
+                    if (alpha < 0.98 && finalColor.g > maxRB) {
+                        float despillWeight = 1.0 - smoothstep(0.70, 0.98, alpha);
+                        finalColor.g = mix(finalColor.g, maxRB, despillWeight);
                     }
-                    if (alpha > 0.6 && greenDominance > 0.08) finalColor.g *= 0.95;
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
                     
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -205,27 +202,26 @@ AFRAME.registerShader('chromakey-bubble', {
                 varying vec2 vUv;
                 void main() {
                     vec4 color = texture2D(tex, vUv);
-                    float greenDominance = color.g - max(color.r, color.b);
-                    float isGreen = 0.0;
-                    if (color.g > 0.6 && color.g > color.r * 1.5 && color.g > color.b * 1.5) isGreen = 1.0;
+                    float maxRB = max(color.r, color.b);
+                    float greenDominance = color.g - maxRB;
+                    
+                    float isGreen = smoothstep(0.25, 0.45, greenDominance) * smoothstep(0.55, 0.75, color.g);
                     if (color.g > 0.75 && greenDominance > 0.35) isGreen = 1.0;
                     
+                    float darkProtection = smoothstep(0.04, 0.16, max(color.g, maxRB));
+                    isGreen *= darkProtection;
+                    
                     float alpha = 1.0 - isGreen;
-                    if (greenDominance > 0.25 && greenDominance < 0.4 && color.g > 0.5) {
-                        float smoothFactor = smoothstep(0.25, 0.4, greenDominance);
-                        alpha = 1.0 - smoothFactor;
-                    }
                     
                     vec3 finalColor = color.rgb;
-                    if (alpha > 0.3 && alpha < 0.85 && greenDominance > 0.15) {
-                        float despillStrength = (1.0 - alpha) * 0.3;
-                        finalColor.g = mix(finalColor.g, (finalColor.r + finalColor.b) * 0.5, despillStrength);
-                    }
                     if (alpha > 0.1) {
                         finalColor *= brightness;
                         finalColor = clamp(finalColor, 0.0, 1.0);
                     }
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
+                    if (alpha > 0.01 && alpha < 0.99 && greenDominance > 0.02) {
+                        float despillStrength = (1.0 - alpha) * 0.8;
+                        finalColor.g = min(finalColor.g, mix(finalColor.g, maxRB, despillStrength));
+                    }
                     
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -298,31 +294,24 @@ AFRAME.registerShader('chromakey-blue', {
                     vec4 color = texture2D(tex, vUv);
                     
                     // Dominasi warna biru terhadap merah dan hijau
-                    float blueDominance = color.b - max(color.r, color.g);
+                    float maxRG = max(color.r, color.g);
+                    float blueDiff = color.b - maxRG;
                     
-                    // Kalibrasi presisi blue screen (#083EF6 / #093DF4 & #093DF4 dengan G ~0.24):
-                    float domFactor = smoothstep(0.54, 0.65, blueDominance);
-                    float rFactor = 1.0 - smoothstep(0.04, 0.10, color.r);
-                    float bFactor = smoothstep(0.82, 0.90, color.b);
+                    // Transisi halus feathered (lembut, tidak bergerigi, anti-aliased):
+                    float isBlue = smoothstep(0.03, 0.25, blueDiff) * smoothstep(0.30, 0.60, color.b);
                     
-                    float isBlue = domFactor * rFactor * bFactor;
-                    
-                    // Hard-cut pengaman untuk piksel blue screen murni
-                    if (color.b > 0.88 && blueDominance > 0.58 && color.r < 0.08) {
-                        isBlue = 1.0;
-                    }
+                    // Perlindungan mutlak area gelap / pupil / outline hitam
+                    float darkProtection = smoothstep(0.02, 0.10, max(color.b, maxRG));
+                    isBlue *= darkProtection;
                     
                     float alpha = 1.0 - isBlue;
                     
-                    // Despill lembut pada tepian semi-transparan untuk hilangkan pantulan biru
+                    // Despill lembut menghilangkan sisa border/halo biru di tepian objek
                     vec3 finalColor = color.rgb;
-                    if (alpha > 0.02 && alpha < 0.98 && blueDominance > 0.06) {
-                        float despillStrength = (1.0 - alpha) * 0.85;
-                        float maxRG = max(finalColor.r, finalColor.g);
-                        finalColor.b = mix(finalColor.b, maxRG, despillStrength);
+                    if (alpha < 0.98 && finalColor.b > maxRG) {
+                        float despillWeight = 1.0 - smoothstep(0.70, 0.98, alpha);
+                        finalColor.b = mix(finalColor.b, maxRG, despillWeight);
                     }
-                    
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
                     
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -464,20 +453,24 @@ AFRAME.registerShader('chromakey-bakteri', {
                     vec4 color = texture2D(tex, vUv);
                     
                     // Hitung seberapa dominan warna hijau dibanding merah dan biru
-                    float greenDominance = color.g - max(color.r, color.b);
+                    float maxRB = max(color.r, color.b);
+                    float greenDominance = color.g - maxRB;
                     
-                    // Latar belakang neon green memiliki greenDominance tinggi (mendekati 1.0)
-                    // Bakteri hijau gelap memiliki greenDominance rendah (di bawah 0.3)
                     // threshold 0.35 - 0.55 memastikan hanya hijau murni yang tembus pandang
-                    float alpha = 1.0 - smoothstep(0.35, 0.55, greenDominance);
+                    float isGreen = smoothstep(0.35, 0.55, greenDominance);
+                    
+                    // Perlindungan area gelap / outline
+                    float darkProtection = smoothstep(0.04, 0.16, max(color.g, maxRB));
+                    isGreen *= darkProtection;
+                    
+                    float alpha = 1.0 - isGreen;
                     
                     vec3 finalColor = color.rgb;
                     
-                    // Despill: Membersihkan sisa pantulan hijau (halo effect) di pinggiran bakteri
-                    if (alpha > 0.0 && alpha < 1.0) {
+                    // Despill: Membersihkan sisa pantulan hijau di pinggiran bakteri
+                    if (alpha > 0.01 && alpha < 0.99) {
                         finalColor.g = min(finalColor.g, (finalColor.r + finalColor.b) * 0.6);
                     }
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
                     
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -533,27 +526,23 @@ AFRAME.registerShader('chromakey-cyan', {
                     vec4 color = texture2D(tex, vUv);
 
                     float gb = min(color.g, color.b);
-                    float cyanDominance = gb - color.r;             // dominasi cyan vs red
-                    float gbBalance = 1.0 - abs(color.g - color.b); // 1.0 saat G == B (cyan murni)
+                    float cyanDominance = gb - color.r;
+                    float gbBalance = 1.0 - abs(color.g - color.b);
 
-                    // Smoothstep agar pinggiran objek halus
-                    float alpha = 1.0 - smoothstep(0.20, 0.45, cyanDominance) * smoothstep(0.7, 0.95, gbBalance);
+                    // Transisi halus presisi cyan:
+                    float isCyan = smoothstep(0.12, 0.35, cyanDominance) * smoothstep(0.60, 0.85, gbBalance) * smoothstep(0.35, 0.65, gb);
 
-                    // Pengaman: pixel jelas-jelas cyan terang -> paksa transparan
-                    if (color.r < 0.5 && color.g > 0.55 && color.b > 0.55 && cyanDominance > 0.3 && gbBalance > 0.85) {
-                        alpha = 0.0;
-                    }
+                    // Perlindungan area gelap
+                    float darkProtection = smoothstep(0.02, 0.10, max(max(color.r, color.g), color.b));
+                    isCyan *= darkProtection;
+
+                    float alpha = 1.0 - isCyan;
 
                     vec3 finalColor = color.rgb;
-
-                    // Despill: kurangi pantulan cyan di tepi objek
-                    if (alpha > 0.0 && alpha < 1.0 && cyanDominance > 0.05) {
-                        float despillStrength = (1.0 - alpha) * 0.6;
-                        float avgRG = (finalColor.r + finalColor.g) * 0.5;
-                        finalColor.b = mix(finalColor.b, min(finalColor.b, avgRG), despillStrength);
-                        finalColor.g = mix(finalColor.g, min(finalColor.g, (finalColor.r + finalColor.b) * 0.5), despillStrength * 0.5);
+                    if (alpha < 0.98 && finalColor.b > max(finalColor.r, finalColor.g)) {
+                        float despillWeight = 1.0 - smoothstep(0.70, 0.98, alpha);
+                        finalColor.b = mix(finalColor.b, max(finalColor.r, finalColor.g), despillWeight);
                     }
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
 
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -651,6 +640,10 @@ AFRAME.registerShader('chromakey-magenta', {
                         isMagenta = 1.0;
                     }
 
+                    // Perlindungan area gelap / pupil / outline hitam
+                    float darkProtection = smoothstep(0.04, 0.16, max(max(color.r, color.g), color.b));
+                    isMagenta *= darkProtection;
+
                     float alpha = 1.0 - isMagenta;
 
                     vec3 finalColor = color.rgb;
@@ -663,9 +656,6 @@ AFRAME.registerShader('chromakey-magenta', {
                         float avgRG = (finalColor.r + finalColor.g) * 0.5;
                         finalColor.b = mix(finalColor.b, min(finalColor.b, avgRG), despillStrength * 0.8);
                     }
-
-                    // Cut piksel hitam pekat / uninitialized frame menjadi transparan (mencegah background hitam)
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
 
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -753,6 +743,10 @@ AFRAME.registerShader('chromakey-neon', {
                         isNeon = 1.0;
                     }
 
+                    // Perlindungan area gelap / outline teks
+                    float darkProtection = smoothstep(0.04, 0.16, max(max(color.r, color.g), color.b));
+                    isNeon *= darkProtection;
+
                     float alpha = 1.0 - isNeon;
 
                     vec3 finalColor = color.rgb;
@@ -762,8 +756,6 @@ AFRAME.registerShader('chromakey-neon', {
                         float despillStrength = (1.0 - alpha) * 0.9;
                         finalColor.g = mix(finalColor.g, (finalColor.r + finalColor.b) * 0.5, despillStrength);
                     }
-
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
 
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -849,6 +841,10 @@ AFRAME.registerShader('chromakey-score', {
                         alpha = 0.0;
                     }
 
+                    // Perlindungan area gelap / outline
+                    float darkFactor = smoothstep(0.04, 0.16, max(max(color.r, color.g), color.b));
+                    alpha = mix(1.0, alpha, darkFactor);
+
                     vec3 finalColor = color.rgb;
 
                     // Despill lembut di tepian semi-transparan untuk hilangkan sisa pantulan warna ungu muda
@@ -860,8 +856,6 @@ AFRAME.registerShader('chromakey-score', {
                         finalColor.r -= rExcess * spillFactor * 0.8;
                         finalColor = clamp(finalColor, 0.0, 1.0);
                     }
-
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
 
                     gl_FragColor = vec4(finalColor, alpha);
                 }
@@ -946,6 +940,10 @@ AFRAME.registerShader('chromakey-teks-part6', {
                         isGreen = 1.0;
                     }
 
+                    // Perlindungan area gelap / outline teks
+                    float darkProtection = smoothstep(0.04, 0.16, max(max(color.r, color.g), color.b));
+                    isGreen *= darkProtection;
+
                     float alpha = 1.0 - isGreen;
 
                     vec3 finalColor = color.rgb;
@@ -955,9 +953,6 @@ AFRAME.registerShader('chromakey-teks-part6', {
                         float despillStrength = (1.0 - alpha) * 0.85;
                         finalColor.g = mix(finalColor.g, (finalColor.r + finalColor.b) * 0.5, despillStrength);
                     }
-
-                    // Cut piksel hitam pekat / uninitialized frame menjadi transparan
-                    if (max(max(color.r, color.g), color.b) < 0.09) alpha = 0.0;
 
                     gl_FragColor = vec4(finalColor, alpha);
                 }

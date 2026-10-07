@@ -38,7 +38,7 @@
             pointer-events: none;
         }
 
-        .quiz-top-bar > * {
+        .quiz-top-bar>* {
             pointer-events: auto;
         }
 
@@ -153,19 +153,23 @@
                 flex-wrap: wrap;
                 gap: 8px;
             }
+
             .quiz-nav-container {
                 order: 3;
                 margin: 6px auto 0;
                 padding: 4px 10px;
             }
+
             .quiz-pill {
                 width: 30px;
                 height: 30px;
                 font-size: 12px;
             }
+
             .quiz-nav-label {
                 display: none;
             }
+
             .marker-badge {
                 padding: 7px 12px;
                 font-size: 12px;
@@ -196,6 +200,7 @@
                 opacity: 0;
                 transform: scale(0.92);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -437,7 +442,8 @@
     </div>
 
     <!-- Status Bar -->
-    <div class="status-bar" id="statusBar" style="display: none !important; visibility: hidden !important;">Arahkan kamera ke Marker 8...</div>
+    <div class="status-bar" id="statusBar" style="display: none !important; visibility: hidden !important;">Arahkan
+        kamera ke Marker 8...</div>
 
     <!-- Result Popup Modal (Fallback) -->
     <div class="result-modal" id="resultModal">
@@ -475,7 +481,8 @@
         " color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights: true, antialias: true"
         vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
 
-        <a-camera position="0 0 0" look-controls="enabled: false" cursor="rayOrigin: mouse" raycaster="objects: .clickable"></a-camera>
+        <a-camera position="0 0 0" look-controls="enabled: false" cursor="rayOrigin: mouse"
+            raycaster="objects: .clickable"></a-camera>
 
         <!-- Target Index 7 corresponds to Marker 8 in Chapter 2 targets -->
         <a-entity id="targetQuiz" mindar-image-target="targetIndex: 7">
@@ -488,7 +495,8 @@
 
                 <!-- Quiz 1 Entity Group -->
                 <a-entity id="quiz-group-1" visible="false">
-                    <a-image id="quiz-pertanyaan-1" src="#img-quiz-pertanyaan-1" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-1" src="#img-quiz-pertanyaan-1" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-1-benar" src="#vid-quiz1-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz1-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -498,7 +506,8 @@
 
                 <!-- Quiz 2 Entity Group -->
                 <a-entity id="quiz-group-2" visible="false">
-                    <a-image id="quiz-pertanyaan-2" src="#img-quiz-pertanyaan-2" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-2" src="#img-quiz-pertanyaan-2" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-2-benar" src="#vid-quiz2-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz2-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -508,7 +517,8 @@
 
                 <!-- Quiz 3 Entity Group (Keduanya berlatar magenta) -->
                 <a-entity id="quiz-group-3" visible="false">
-                    <a-image id="quiz-pertanyaan-3" src="#img-quiz-pertanyaan-3" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-3" src="#img-quiz-pertanyaan-3" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-3-benar" src="#vid-quiz3-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz3-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -518,7 +528,8 @@
 
                 <!-- Quiz 4 Entity Group -->
                 <a-entity id="quiz-group-4" visible="false">
-                    <a-image id="quiz-pertanyaan-4" src="#img-quiz-pertanyaan-4" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-4" src="#img-quiz-pertanyaan-4" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-4-benar" src="#vid-quiz4-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz4-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -528,7 +539,8 @@
 
                 <!-- Quiz 5 Entity Group (Keduanya berlatar magenta) -->
                 <a-entity id="quiz-group-5" visible="false">
-                    <a-image id="quiz-pertanyaan-5" src="#img-quiz-pertanyaan-5" position="0 0 0.12" height="1" width="1"
+                    <a-image id="quiz-pertanyaan-5" src="#img-quiz-pertanyaan-5" position="0 0 0.12" height="1"
+                        width="1"
                         material="transparent: true; alphaTest: 0.05; side: double; depthWrite: false"></a-image>
                     <a-video id="video-quiz-5-benar" src="#vid-quiz5-benar" position="0 0 0.10" height="1" width="1"
                         material="shader: chromakey-magenta; src: #vid-quiz5-benar; transparent: true; side: double; depthWrite: false"></a-video>
@@ -544,100 +556,142 @@
 
                 <!-- 3D Choice Clickable Planes (Active at 9.25s, accurately tracking Marker 8) -->
                 <!-- Left card 3D plane -->
-                <a-plane id="btn-choice-left-3d" class="clickable" quiz-choice-left position="-0.20 -0.012 0.22" width="0.38" height="0.34"
-                    material="opacity: 0.001; transparent: true; depthWrite: false; side: double" visible="false"></a-plane>
+                <a-plane id="btn-choice-left-3d" class="clickable" quiz-choice-left position="-0.20 -0.012 0.22"
+                    width="0.38" height="0.34"
+                    material="opacity: 0.001; transparent: true; depthWrite: false; side: double"
+                    visible="false"></a-plane>
 
                 <!-- Right card 3D plane -->
-                <a-plane id="btn-choice-right-3d" class="clickable" quiz-choice-right position="0.20 -0.012 0.22" width="0.38" height="0.34"
-                    material="opacity: 0.001; transparent: true; depthWrite: false; side: double" visible="false"></a-plane>
+                <a-plane id="btn-choice-right-3d" class="clickable" quiz-choice-right position="0.20 -0.012 0.22"
+                    width="0.38" height="0.34"
+                    material="opacity: 0.001; transparent: true; depthWrite: false; side: double"
+                    visible="false"></a-plane>
 
                 <!-- 3D Next Button (Muncul di bawah kartu Benar & Salah saat memilih Benar dan bergerak mengikuti Marker 8) -->
-                <a-image id="btn-next-quiz-3d" class="clickable" quiz-next-trigger src="#img-quiz-next-btn" position="0 -0.38 0.22" height="0.25" width="0.25"
-                    material="transparent: true; opacity: 0; alphaTest: 0.01; side: double; depthWrite: false" visible="false"
+                <a-image id="btn-next-quiz-3d" class="clickable" quiz-next-trigger src="#img-quiz-next-btn"
+                    position="0 -0.38 0.22" height="0.25" width="0.25"
+                    material="transparent: true; opacity: 0; alphaTest: 0.01; side: double; depthWrite: false"
+                    visible="false"
                     animation__fade="property: material.opacity; from: 0; to: 1; dur: 600; easing: easeOutCubic; startEvents: trigger-fade-in"
                     animation__scale="property: scale; from: 0.2 0.2 0.2; to: 1 1 1; dur: 650; easing: easeOutBack; startEvents: trigger-fade-in"
                     animation__pulse="property: scale; dir: alternate; dur: 850; easing: easeInOutSine; loop: true; to: 1.10 1.10 1; startEvents: trigger-pulse-start"></a-image>
 
                 <!-- Transparent hit plane for 3D Next Button (High touch responsiveness) -->
-                <a-plane id="btn-next-plane-3d" class="clickable" quiz-next-trigger position="0 -0.38 0.24" width="0.36" height="0.32"
-                    material="opacity: 0.001; transparent: true; depthWrite: false" visible="false"></a-plane>
+                <a-plane id="btn-next-plane-3d" class="clickable" quiz-next-trigger position="0 -0.38 0.24" width="0.36"
+                    height="0.32" material="opacity: 0.001; transparent: true; depthWrite: false"
+                    visible="false"></a-plane>
 
                 <!-- 3D Home Button (Menimpa mutiara pada kerang di video score.mp4 dengan posisi pas di bawah kiri) -->
-                <a-image id="btn-home-score-3d" class="clickable" quiz-home-trigger src="#img-quiz-home-btn" position="-0.024 -0.112 0.20" height="0.18" width="0.18"
-                    material="transparent: true; opacity: 0; alphaTest: 0.01; side: double; depthWrite: false" visible="false"
+                <a-image id="btn-home-score-3d" class="clickable" quiz-home-trigger src="#img-quiz-home-btn"
+                    position="-0.024 -0.112 0.20" height="0.18" width="0.18"
+                    material="transparent: true; opacity: 0; alphaTest: 0.01; side: double; depthWrite: false"
+                    visible="false"
                     animation__fade="property: material.opacity; from: 0; to: 1; dur: 450; easing: easeOutCubic; startEvents: home-fade-in"
                     animation__scale="property: scale; from: 0.2 0.2 0.2; to: 1 1 1; dur: 550; easing: easeOutBack; startEvents: home-fade-in"
                     animation__pulse="property: scale; dir: alternate; dur: 850; easing: easeInOutSine; loop: true; to: 1.12 1.12 1; startEvents: home-pulse-start"></a-image>
 
                 <!-- Transparent hit plane for 3D Home Button (Sentuhan responsif di layar) -->
-                <a-plane id="btn-home-score-plane" class="clickable" quiz-home-trigger position="-0.024 -0.112 0.22" width="0.30" height="0.30"
-                    material="opacity: 0.001; transparent: true; depthWrite: false" visible="false"></a-plane>
+                <a-plane id="btn-home-score-plane" class="clickable" quiz-home-trigger position="-0.024 -0.112 0.22"
+                    width="0.30" height="0.30" material="opacity: 0.001; transparent: true; depthWrite: false"
+                    visible="false"></a-plane>
             </a-entity>
         </a-entity>
 
         <!-- All Preloaded Assets for Quizzes 1 - 5 + Final Score -->
         <a-assets timeout="10000">
             <!-- Question Banners -->
-            <img id="img-quiz-pertanyaan-1" src="./compressed_ultra-videos/chapter1/quiz/quiz1/pertanyaan.PNG" crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-2" src="./compressed_ultra-videos/chapter1/quiz/quiz2/pertanyaan.PNG" crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-3" src="./compressed_ultra-videos/chapter1/quiz/quiz3/pertanyaan.PNG" crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-4" src="./compressed_ultra-videos/chapter1/quiz/quiz4/pertanyaan.PNG" crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-5" src="./compressed_ultra-videos/chapter1/quiz/quiz5/pertanyaan.PNG" crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-1" src="./compressed_ultra-videos/chapter1/quiz/quiz1/pertanyaan.PNG"
+                crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-2" src="./compressed_ultra-videos/chapter1/quiz/quiz2/pertanyaan.PNG"
+                crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-3" src="./compressed_ultra-videos/chapter1/quiz/quiz3/pertanyaan.PNG"
+                crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-4" src="./compressed_ultra-videos/chapter1/quiz/quiz4/pertanyaan.PNG"
+                crossorigin="anonymous" />
+            <img id="img-quiz-pertanyaan-5" src="./compressed_ultra-videos/chapter1/quiz/quiz5/pertanyaan.PNG"
+                crossorigin="anonymous" />
 
             <!-- Buttons -->
             <img id="img-quiz-next-btn" src="./addon-image/quiz/next-button-crop.png" crossorigin="anonymous" />
             <img id="img-quiz-home-btn" src="./addon-image/quiz/home-button-crop.png" crossorigin="anonymous" />
 
             <!-- Videos for Quiz 1 -->
-            <video id="vid-quiz1-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz1/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz1-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz1/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz1-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz1/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz1-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz1/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
             <!-- Videos for Quiz 2 -->
-            <video id="vid-quiz2-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz2/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz2-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz2/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz2-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz2/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz2-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz2/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
             <!-- Videos for Quiz 3 -->
-            <video id="vid-quiz3-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz3/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz3-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz3/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz3-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz3/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz3-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz3/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
             <!-- Videos for Quiz 4 -->
-            <video id="vid-quiz4-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz4/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz4-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz4/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz4-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz4/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz4-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz4/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
             <!-- Videos for Quiz 5 -->
-            <video id="vid-quiz5-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz5/video/benar.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz5-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz5/video/salah.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz5-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz5/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz5-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz5/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
             <!-- Video Final Score -->
-            <video id="vid-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/video/score.mp4" preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/video/score.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
             <!-- Audio Voiceover Quiz 1 -->
-            <audio id="sound-quiz1-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz1/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz1-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz1/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz1-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz1/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz1-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz1/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz1-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz1/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz1-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz1/sound/salah.mp3"
+                preload="auto"></audio>
 
             <!-- Audio Voiceover Quiz 2 -->
-            <audio id="sound-quiz2-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz2/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz2-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz2/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz2-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz2/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz2-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz2/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz2-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz2/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz2-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz2/sound/salah.mp3"
+                preload="auto"></audio>
 
             <!-- Audio Voiceover Quiz 3 -->
-            <audio id="sound-quiz3-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz3/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz3-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz3/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz3-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz3/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz3-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz3/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz3-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz3/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz3-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz3/sound/salah.mp3"
+                preload="auto"></audio>
 
             <!-- Audio Voiceover Quiz 4 -->
-            <audio id="sound-quiz4-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz4/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz4-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz4/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz4-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz4/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz4-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz4/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz4-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz4/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz4-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz4/sound/salah.mp3"
+                preload="auto"></audio>
 
             <!-- Audio Voiceover Quiz 5 -->
-            <audio id="sound-quiz5-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz5/sound/pertanyaan.mp3" preload="auto"></audio>
-            <audio id="sound-quiz5-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz5/sound/benar.mp3" preload="auto"></audio>
-            <audio id="sound-quiz5-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz5/sound/salah.mp3" preload="auto"></audio>
+            <audio id="sound-quiz5-pertanyaan" src="./compressed_ultra-videos/chapter1/quiz/quiz5/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz5-benar" src="./compressed_ultra-videos/chapter1/quiz/quiz5/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz5-salah" src="./compressed_ultra-videos/chapter1/quiz/quiz5/sound/salah.mp3"
+                preload="auto"></audio>
 
             <!-- Audio Voiceover Final Score -->
-            <audio id="sound-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/sound/sound.mp3" preload="auto"></audio>
+            <audio id="sound-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/sound/sound.mp3"
+                preload="auto"></audio>
         </a-assets>
     </a-scene>
 
