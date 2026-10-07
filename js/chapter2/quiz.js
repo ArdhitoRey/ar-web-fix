@@ -1,4 +1,5 @@
 import { CDN_BASE } from "../cdnConfig.js";
+import { unlockAudioSession } from "../audioUnlocker.js";
 
 // Quiz AR Logic - Marker 8 MindAR Experience untuk Chapter 2
 // Mendukung Quiz 1, 2, 3, 4, 5 dan Final Score secara Seamless (Single-Page Experience):
@@ -268,10 +269,7 @@ window.__startQuizSeamless = function (targetQuizId = 1) {
         try { v.pause(); v.currentTime = 0; } catch (e) {}
     });
 
-    try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-    } catch (e) {}
+    unlockAudioSession();
 
     setupQuizScene(targetQuizId);
 

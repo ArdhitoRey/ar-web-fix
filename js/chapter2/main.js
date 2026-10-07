@@ -11,6 +11,7 @@ import { playPart6, initPart6 } from "./parts/part6.js";
 import { playPart7, initPart7 } from "./parts/part7.js";
 import { playPart8, initPart8 } from "./parts/part8.js";
 import './quiz.js';
+import { unlockAudioSession } from '../audioUnlocker.js';
 
 // -----------------------------------------------------------------------------
 // 1. PRIORITAS BUFFERING: MUAT HANYA PART 1 DI AWAL (LAZY LOADING)
@@ -227,33 +228,8 @@ function executeStartChapter2() {
         dom.statusBar.classList.remove("tracking", "finished");
     }
 
-    // Buka kunci WebAudio context secara senyap jika didukung browser
-    try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (AudioCtx) {
-            if (!window.__globalAudioCtx) window.__globalAudioCtx = new AudioCtx();
-            if (window.__globalAudioCtx.state === 'suspended') window.__globalAudioCtx.resume();
-        }
-    } catch (e) {}
-
-    // Prime audio Part 1
-    if (dom.soundV1) {
-        try {
-            dom.soundV1.muted = true;
-            dom.soundV1.volume = 0;
-            const p = dom.soundV1.play();
-            if (p !== undefined) {
-                p.then(() => {
-                    if (!state.isPlaying) {
-                        dom.soundV1.pause();
-                        dom.soundV1.currentTime = 0;
-                    }
-                    dom.soundV1.muted = false;
-                    dom.soundV1.volume = 1.0;
-                }).catch(() => {});
-            }
-        } catch (e) {}
-    }
+    // Buka kunci Audio Session (WebAudio & seluruh elemen HTML5 <audio>)
+    unlockAudioSession();
 
     // Jika Marker 1 memang sudah terdeteksi nyata oleh kamera sebelum/saat tombol Mulai ditekan
     const isMarker1Detected = (state.pendingPart === 1) || (state.isTargetInView && state.isTargetInView[1]) || (dom.target1 && dom.target1.object3D && dom.target1.object3D.visible);
@@ -285,6 +261,7 @@ function executeStartChapter2() {
 // 4. START BUTTON LISTENER
 if (dom.startButton) {
     const handleStartChapter2 = (e) => {
+        unlockAudioSession();
         if (!isStartUnlocked || dom.startButton.disabled || state.hasStarted) {
             if (e) {
                 e.preventDefault();
@@ -297,6 +274,7 @@ if (dom.startButton) {
     };
     dom.startButton.addEventListener("click", handleStartChapter2);
     dom.startButton.addEventListener("touchend", handleStartChapter2);
+    dom.startButton.addEventListener("pointerdown", () => unlockAudioSession(), { passive: true });
 }
 
 // -----------------------------------------------------------------------------

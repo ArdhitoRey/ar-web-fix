@@ -12,7 +12,7 @@ if (dom.soundV8 && !dom.soundV8._guardInstalled) {
     const origPlay8 = dom.soundV8.play;
     dom.soundV8.play = function () {
         // Izinkan pemanggilan senyap untuk unlocking gesture pada mobile browser
-        if (this.muted && this.volume === 0) {
+        if (window.__isUnlockingAudio || this.volume <= 0.01 || (this.muted && this.volume === 0)) {
             return origPlay8.apply(this, arguments);
         }
         if (state.currentPart !== 8 || !state.hasStarted || window.__quizActiveSeamless || state.currentPart === 'quiz') {

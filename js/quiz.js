@@ -1,4 +1,5 @@
 import { CDN_BASE } from "./cdnConfig.js";
+import { unlockAudioSession } from "./audioUnlocker.js";
 
 // Quiz AR Logic - Marker 8 MindAR Experience
 // Mendukung Quiz 1, 2, 3, 4, 5 dan Final Score secara Seamless (Single-Page Experience):
@@ -360,6 +361,7 @@ if (isStandalone) {
 
     if (startButton) {
         const handleStartQuiz = (e) => {
+            unlockAudioSession();
             if (startButton.disabled || quizState === 'LOADING') {
                 if (e) {
                     e.preventDefault();
@@ -382,6 +384,7 @@ if (isStandalone) {
         };
         startButton.addEventListener('click', handleStartQuiz);
         startButton.addEventListener('touchend', handleStartQuiz);
+        startButton.addEventListener('pointerdown', () => unlockAudioSession(), { passive: true });
     }
 }
 
@@ -410,10 +413,7 @@ window.__startQuizSeamless = function (targetQuizId = 1) {
         try { v.pause(); v.currentTime = 0; } catch (e) {}
     });
 
-    try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-    } catch (e) {}
+    unlockAudioSession();
 
     setupQuizScene(targetQuizId);
 
@@ -715,21 +715,7 @@ window.__navigateToQuiz = transitionToQuiz;
 async function executeStartQuiz() {
     console.log(`🚀 [Quiz AR] Membuka AR Session untuk ${currentQuiz.title}...`);
 
-    // Prime Web Audio Context
-    try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') await audioCtx.resume();
-    } catch (e) {
-        console.warn('⚠️ Audio context unlock warning:', e);
-    }
-
-    // Prime all sound elements (reset dan pause agar tidak berbunyi bersamaan)
-    allSoundElements.forEach((s) => {
-        try {
-            s.pause();
-            s.currentTime = 0;
-        } catch (e) {}
-    });
+    unlockAudioSession();
 
     // Prime all video elements
     allVideoElements.forEach(async (v) => {
