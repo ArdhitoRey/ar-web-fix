@@ -1,5 +1,6 @@
 import { state, dom, videos } from '../state.js';
 import { fadeInContainer, fadeOutContainer, fadeAudioIn, hideAllContainersExcept, isContainerVisible } from '../utils.js';
+import { preloadPart, releasePartVideos } from '../loader.js';
 
 export async function playPart1() {
     // Pengecekan guard yang ketat
@@ -8,6 +9,9 @@ export async function playPart1() {
         return;
     }
     
+    // Background prefetch Part 2 saat Part 1 mulai berputar
+    preloadPart(2);
+
     state.isMarkerLocked = true;
     state.lockedMarker = 1;
     state.isTransitioning = true;
@@ -16,7 +20,6 @@ export async function playPart1() {
     hideAllContainersExcept(dom.containerPart1);
     
     // Cari layar mana yang mungkin masih menyala secara aman
-    // (Untuk Part 1, biasanya layar sebelumnya kosong, tapi ini buat jaga-jaga kalau user Replay)
     const allContainers = [dom.containerPart2, dom.containerPart3]; 
     const previousContainer = allContainers.find(c => c && c.getAttribute('visible') === 'true');
     
@@ -128,14 +131,13 @@ async function startPart1Videos() {
         state.isPlaying = false;
         state.part1Finished = true;
         
+        // Bersihkan decoder Part 1 & pastikan Part 2 sudah di-prefetch
+        releasePartVideos(1);
+        preloadPart(2);
+
         if (dom.containerPart1) {
             fadeOutContainer(dom.containerPart1, 250, () => {
-                videos.part1.forEach(v => { 
-                    try { 
-                        v.pause(); 
-                        v.currentTime = 0; 
-                    } catch (e) {} 
-                });
+                releasePartVideos(1);
                 console.log('🧹 Layar dibersihkan dan video dimatikan.');
             });
         }

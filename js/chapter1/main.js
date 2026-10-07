@@ -1,4 +1,5 @@
 import { state, dom, allVideos, videos } from "./state.js";
+import { preloadPart, ensurePartLoaded, releasePartVideos } from "./loader.js";
 
 // AREA IMPORT FUNGSI PART
 import { playPart1, initPart1 } from './parts/part1.js';
@@ -8,102 +9,16 @@ import { playPart4, initPart4 } from './parts/part4.js';
 import { playPart5, initPart5 } from './parts/part5.js';
 import { playPart6, initPart6 } from './parts/part6.js';
 import { playPart7, initPart7 } from './parts/part7.js';
-import { playPart8, initPart8, handleNavigateToQuiz } from './parts/part8.js';
+import { playPart8, initPart8 } from './parts/part8.js';
 
 // IMPORT SEAMLESS QUIZ MODULE
 import '../quiz.js';
 
-// 1. DYNAMIC CACHE BUSTING
-const cacheBuster = Date.now();
-console.log("🔄 Cache buster applied:", cacheBuster);
-
-// BAGIAN 1 - SETTING PATH KE SUB-FOLDER
-// Part 1
-document.getElementById("vid-laut").src = `./compressed_ultra-videos/chapter1/part1/LAUT-v1.mp4?t=${cacheBuster}`;
-document.getElementById("vid-batu").src = `./compressed_ultra-videos/chapter1/part1/BATU SEAWEED-v1.mp4?t=${cacheBuster}`;
-document.getElementById("vid-gelembung").src = `./compressed_ultra-videos/chapter1/part1/GELEMBUNG-v1.mp4?t=${cacheBuster}`;
-document.getElementById("vid-kapal").src = `./compressed_ultra-videos/chapter1/part1/KAPAL SELAM-v1.mp4?t=${cacheBuster}`;
-document.getElementById("vid-mascot").src = `./compressed_ultra-videos/chapter1/part1/MASCOT-v1.mp4?t=${cacheBuster}`;
-
-// Part 2
-document.getElementById("vid-batu2").src = `./compressed_ultra-videos/chapter1/part2/BATU SEAWEED-v2.mp4?t=${cacheBuster}`;
-document.getElementById("vid-gelembung2").src = `./compressed_ultra-videos/chapter1/part2/GELEMBUNG-v2.mp4?t=${cacheBuster}`;
-document.getElementById("vid-mascot2").src = `./compressed_ultra-videos/chapter1/part2/MASCOT-v2.mp4?t=${cacheBuster}`;
-document.getElementById("vid-gosok").src = `./compressed_ultra-videos/chapter1/part2/GOSOK GIGI-v2.mp4?t=${cacheBuster}`;
-document.getElementById("vid-orang").src = `./compressed_ultra-videos/chapter1/part2/ORANG-v2.mp4?t=${cacheBuster}`;
-document.getElementById("vid-text2").src = `./compressed_ultra-videos/chapter1/part2/TEXT_v2.mp4?t=${cacheBuster}`;
-
-// Part 3
-document.getElementById("vid-kapal3").src = `./compressed_ultra-videos/chapter1/part3/KAPAL SELAM-v3.mp4?t=${cacheBuster}`;
-document.getElementById("vid-mascot3").src = `./compressed_ultra-videos/chapter1/part3/MASCOT-v3.mp4?t=${cacheBuster}`;
-document.getElementById("vid-sikat").src = `./compressed_ultra-videos/chapter1/part3/SIKAT GIGI-v3.mp4?t=${cacheBuster}`;
-document.getElementById("vid-teks-part3").src = `./compressed_ultra-videos/chapter1/part3/teks-part3.mp4?t=${cacheBuster}`;
-
-// Part 4
-document.getElementById("vid-kapal4").src = `./compressed_ultra-videos/chapter1/part4/KAPAL SELAM-v4.mp4?t=${cacheBuster}`;
-document.getElementById("vid-mascot4").src = `./compressed_ultra-videos/chapter1/part4/MASCOT-v4.mp4?t=${cacheBuster}`;
-document.getElementById("vid-sikat4").src = `./compressed_ultra-videos/chapter1/part4/SIKAT GIGI-v4.mp4?t=${cacheBuster}`;
-document.getElementById("vid-teks-part4").src = `./compressed_ultra-videos/chapter1/part4/teks-part4.mp4?t=${cacheBuster}`;
-
-// Part 5
-document.getElementById("vid-orang5").src = `./compressed_ultra-videos/chapter1/part5/ORANG-v5.mp4?t=${cacheBuster}`;
-document.getElementById("vid-tangan").src = `./compressed_ultra-videos/chapter1/part5/TANGAN-v5.mp4?t=${cacheBuster}`;
-document.getElementById("vid-teks-part5").src = `./compressed_ultra-videos/chapter1/part5/teks-part5.mp4?t=${cacheBuster}`;
-
-// Part 6
-document.getElementById("vid-kapal6").src = `./compressed_ultra-videos/chapter1/part6/KAPAL SELAM-v6.mp4?t=${cacheBuster}`;
-document.getElementById("vid-mascot2-6").src = `./compressed_ultra-videos/chapter1/part6/mascot2.mp4?t=${cacheBuster}`;
-document.getElementById("vid-mascot6").src = `./compressed_ultra-videos/chapter1/part6/ORANG MASCOT-v6.mp4?t=${cacheBuster}`;
-
-// Part 7
-document.getElementById("vid-coral7").src = `./compressed_ultra-videos/chapter1/part7/CORAL-v7.mp4?t=${cacheBuster}`;
-document.getElementById("vid-laut7").src = `./compressed_ultra-videos/chapter1/part7/LAUT-v7.mp4?t=${cacheBuster}`;
-document.getElementById("vid-mascot7").src = `./compressed_ultra-videos/chapter1/part7/MASCOT-v7.mp4?t=${cacheBuster}`;
-document.getElementById("vid-orang7").src = `./compressed_ultra-videos/chapter1/part7/ORANG-v7.mp4?t=${cacheBuster}`;
-document.getElementById("vid-teks-part7").src = `./compressed_ultra-videos/chapter1/part7/teks-part7.mp4?t=${cacheBuster}`;
-
-// Part 8
-const vidAir8 = document.getElementById("vid-air-part8-v1");
-if (vidAir8) vidAir8.src = `./compressed_ultra-videos/chapter1/part8/air.mp4?t=${cacheBuster}`;
-const vidRumput8 = document.getElementById("vid-rumput-part8-v1");
-if (vidRumput8) vidRumput8.src = `./compressed_ultra-videos/chapter1/part8/rumput.mp4?t=${cacheBuster}`;
-const vidKapal8 = document.getElementById("vid-kapal-part8-v1");
-if (vidKapal8) vidKapal8.src = `./compressed_ultra-videos/chapter1/part8/kapal.mp4?t=${cacheBuster}`;
-const vidKerang8 = document.getElementById("vid-kerang-part8-v1");
-if (vidKerang8) vidKerang8.src = `./compressed_ultra-videos/chapter1/part8/kerang.mp4?t=${cacheBuster}`;
-const vidTeks8 = document.getElementById("vid-teks-quiz-part8-v1");
-if (vidTeks8) vidTeks8.src = `./compressed_ultra-videos/chapter1/part8/teks-quiz.mp4?t=${cacheBuster}`;
-
-// 2. DYNAMIC CACHE BUSTING & FORCE LOAD AUDIO & VIDEO
-[
-    { el: dom.soundV1, id: 'sound-v1' },
-    { el: dom.soundV2, id: 'sound-v2' },
-    { el: dom.soundV3, id: 'sound-v3' },
-    { el: dom.soundV4, id: 'sound-v4' },
-    { el: dom.soundV5, id: 'sound-v5' },
-    { el: dom.soundV6, id: 'sound-v6' },
-    { el: dom.soundV7, id: 'sound-v7' },
-    { el: dom.soundV8, id: 'sound-v8', ext: 'mp3' }
-].forEach(item => {
-    if (item.el) {
-        const ext = item.ext || 'MP3';
-        item.el.src = `./sounds/chapter1/output-sounds/${item.id}.${ext}?t=${cacheBuster}`;
-        item.el.load();
-        item.el.preload = "auto";
-    }
-});
-
-// Prioritaskan loading Part 1 terlebih dahulu
-videos.part1.forEach((v) => {
-    if (v) { v.load(); v.preload = "auto"; }
-});
-
-// Load sisa video part 2-8
-setTimeout(() => {
-    [...videos.part2, ...videos.part3, ...videos.part4, ...videos.part5, ...videos.part6, ...videos.part7, ...videos.part8].forEach((v) => {
-        if (v) { v.load(); v.preload = "auto"; }
-    });
-}, 300);
+// -----------------------------------------------------------------------------
+// 1. PRIORITAS BUFFERING: MUAT HANYA PART 1 DI AWAL (LAZY LOADING)
+// -----------------------------------------------------------------------------
+console.log("🚀 [Chapter 1] Memulai pemuatan prioritas Part 1 (HTTP Disk Caching Aktif)...");
+preloadPart(1);
 
 // -----------------------------------------------------------------------------
 // Kamera Streaming Helper (Cegah Black Screen & Suara Memulai Duluan)
@@ -156,14 +71,13 @@ if (dom.arScene) {
 }
 
 // -----------------------------------------------------------------------------
-// 3. LOADING SCREEN SYSTEM
+// 2. LOADING SCREEN SYSTEM
 // Selesaikan seluruh pemuatan SEBELUM tombol Mulai dapat ditekan:
 // - Pemuatan halaman browser tuntas (window load)
 // - A-Frame scene & shaders siap (scene loaded)
 // - Target MindAR telah ter-compile & siap (arReady)
 // - Kamera aktif & streaming frame nyata (isCameraStreaming)
-// - Seluruh video Part 1 telah siap (videos.part1 canplaythrough)
-// Setelah tombol Mulai ditekan, kamera sudah streaming dan langsung tampil seketika!
+// - Seluruh video Part 1 ter-buffer nyata di HP (videos.part1 readyState >= 3)
 // -----------------------------------------------------------------------------
 let part1BufferedCount = 0;
 let isStartUnlocked = false;
@@ -173,12 +87,12 @@ function checkAndUnlockIfReady() {
 
     const cameraStreaming = isCameraStreaming();
     const totalPart1 = videos.part1.length;
-    const videosReady = part1BufferedCount >= totalPart1;
+    const videosReady = (part1BufferedCount >= totalPart1);
 
     // Hitung progress gabungan:
     // - Browser Load: 15%
     // - Scene Load: 15%
-    // - Video Part 1: 35%
+    // - Video Part 1 Buffering: 35%
     // - Kamera & MindAR: 35%
     let totalPct = 0;
     if (isWindowLoaded) totalPct += 15;
@@ -193,7 +107,7 @@ function checkAndUnlockIfReady() {
     if (barFill) barFill.style.width = `${Math.max(15, totalPct)}%`;
     if (dom.loadingProgress) dom.loadingProgress.textContent = `${totalPct}%`;
 
-    // Tombol Mulai HANYA terbuka jika SEMUA pemuatan browser, AR, kamera, dan video tuntas!
+    // Tombol Mulai HANYA terbuka jika browser, AR, kamera, dan SELURUH video Part 1 siap!
     if (isWindowLoaded && isSceneLoaded && isArReady && cameraStreaming && videosReady) {
         unlockStartButton();
     }
@@ -216,18 +130,30 @@ function unlockStartButton() {
     }
 }
 
-// Pantau buffering video Part 1
+// Pantau buffering nyata pada kelima video Part 1 (readyState >= 3)
 videos.part1.forEach((video) => {
     if (!video) return;
-    const onPart1Buffered = () => {
+    const onPart1Ready = () => {
         part1BufferedCount++;
         checkAndUnlockIfReady();
     };
+
     if (video.readyState >= 3) {
-        onPart1Buffered();
+        onPart1Ready();
     } else {
-        video.addEventListener("canplaythrough", onPart1Buffered, { once: true });
-        video.addEventListener("loadeddata", onPart1Buffered, { once: true });
+        const canPlayHandler = () => {
+            if (video.readyState >= 3) {
+                video.removeEventListener("canplaythrough", canPlayHandler);
+                video.removeEventListener("canplay", canPlayHandler);
+                onPart1Ready();
+            }
+        };
+        video.addEventListener("canplaythrough", canPlayHandler);
+        video.addEventListener("canplay", canPlayHandler);
+        video.addEventListener("error", () => {
+            console.warn("⚠️ [Chapter 1] Video Part 1 error:", video.id);
+            onPart1Ready();
+        }, { once: true });
     }
 });
 
@@ -246,25 +172,31 @@ const cameraCheckInterval = setInterval(() => {
     checkAndUnlockIfReady();
 }, 150);
 
-// Safety fallback maksimum (15 detik) jika ada aset eksternal non-kritis yang tertahan jaringan
+// Safety fallback maksimum (12 detik)
 setTimeout(() => {
     if (!isStartUnlocked) {
-        console.log("⏱️ [Chapter 1] Timeout safety check (15s)...");
+        console.log("⏱️ [Chapter 1] Timeout safety check (12s)...");
         isWindowLoaded = true;
         isSceneLoaded = true;
         if (isCameraStreaming()) {
             unlockStartButton();
         }
     }
-}, 15000);
+}, 12000);
 
-// Inisialisasi seluruh listener marker dan UI sejak awal agar targetFound tidak terlewat
+// Inisialisasi seluruh listener marker sejak awal
 initPart1(); initPart2(); initPart3(); initPart4(); initPart5(); initPart6(); initPart7(); initPart8();
 
+// -----------------------------------------------------------------------------
+// 3. EXECUTE START CHAPTER 1
+// -----------------------------------------------------------------------------
 function executeStartChapter1() {
     state.hasStarted = true;
     state.audioEnabled = true;
     state.cameraReady = true;
+
+    // Background prefetch Part 2 segera setelah pengguna menekan Mulai
+    preloadPart(2);
 
     // Pastikan background body transparan dan elemen kamera terlihat jelas tanpa black screen
     document.body.style.backgroundColor = 'transparent';
@@ -299,31 +231,24 @@ function executeStartChapter1() {
         }
     } catch (e) {}
 
-    // Buka kunci izin mobile browser untuk SEMUA narasi (Part 1 sampai Part 8)
-    // Dilakukan secara senyap (volume 0 & muted) di dalam event gesture klik "Mulai"
-    const allSounds = [
-        dom.soundV1, dom.soundV2, dom.soundV3, dom.soundV4,
-        dom.soundV5, dom.soundV6, dom.soundV7, dom.soundV8
-    ].filter(Boolean);
-
-    allSounds.forEach((audio) => {
+    // Prime audio Part 1
+    if (dom.soundV1) {
         try {
-            audio.muted = true;
-            audio.volume = 0;
-            const p = audio.play();
+            dom.soundV1.muted = true;
+            dom.soundV1.volume = 0;
+            const p = dom.soundV1.play();
             if (p !== undefined) {
                 p.then(() => {
-                    // Hanya pause audio Part 2-8 yang belum dipakai, atau jika Part 1 belum jalan
-                    if (audio !== dom.soundV1 || !state.isPlaying) {
-                        audio.pause();
-                        audio.currentTime = 0;
+                    if (!state.isPlaying) {
+                        dom.soundV1.pause();
+                        dom.soundV1.currentTime = 0;
                     }
-                    audio.muted = false;
-                    audio.volume = 1.0;
+                    dom.soundV1.muted = false;
+                    dom.soundV1.volume = 1.0;
                 }).catch(() => {});
             }
         } catch (e) {}
-    });
+    }
 
     // Jika Marker 1 memang sudah terdeteksi nyata oleh kamera sebelum/saat tombol Mulai ditekan
     const isMarker1Detected = (state.pendingPart === 1) || (state.isTargetInView && state.isTargetInView[1]) || (dom.target1 && dom.target1.object3D && dom.target1.object3D.visible);
@@ -335,7 +260,7 @@ function executeStartChapter1() {
         }
     }
 
-    // Watcher: jika Marker 1 terdeteksi dalam jangkauan kamera sesaat setelah tombol Mulai ditekan (cegah butuh refresh)
+    // Watcher: jika Marker 1 terdeteksi dalam jangkauan kamera sesaat setelah tombol Mulai ditekan
     const marker1Watcher = setInterval(() => {
         if (state.part1Finished || state.isPlaying || state.currentPart > 0) {
             clearInterval(marker1Watcher);
@@ -352,7 +277,7 @@ function executeStartChapter1() {
     setTimeout(() => clearInterval(marker1Watcher), 8000);
 }
 
-// 4. START BUTTON (LANGSUNG BUKA KAMERA TANPA DELAY)
+// 4. START BUTTON LISTENER
 if (dom.startButton) {
     const handleStartChapter1 = () => {
         if (state.hasStarted) return;
@@ -362,7 +287,9 @@ if (dom.startButton) {
     dom.startButton.addEventListener("touchstart", handleStartChapter1, { passive: true });
 }
 
+// -----------------------------------------------------------------------------
 // 5. GLOBAL CONTROL LOGIC
+// -----------------------------------------------------------------------------
 export function replayPart(partNumber) {
     if (window.__quizActiveSeamless || state.currentPart === 'quiz') return;
     if (partNumber !== state.currentPart) {
@@ -382,7 +309,10 @@ export function replayPart(partNumber) {
     if(partNumber === 3) state.part4Finished = false; 
     if(partNumber === 1) state.currentPart = 0; 
 
-    playActions[partNumber]();
+    ensurePartLoaded(partNumber);
+    if (playActions[partNumber]) {
+        playActions[partNumber]();
+    }
 
     setTimeout(() => {
         if (!state.isPlaying) {
@@ -406,7 +336,7 @@ export function restartFromBeginning() {
     state.lastScannedMarker = 0;
 
     dom.statusBar.classList.remove("finished");
-    dom.statusBar.textContent = "Mencari marker...";
+    dom.statusBar.textContent = "Arahkan kamera ke Marker 1";
 }
 
 // 6. EVENT LISTENERS
@@ -437,7 +367,7 @@ const handleReset = (e) => {
 dom.resetButton.addEventListener("click", handleReset);
 dom.resetButton.addEventListener("touchend", handleReset);
 
-// Bersihkan kamera & media saat meninggalkan halaman (klik Home / navigasi / pagehide)
+// Bersihkan kamera & media saat meninggalkan halaman
 export function releaseCameraAndMedia() {
     try {
         document.querySelectorAll('video').forEach((v) => {
@@ -463,10 +393,15 @@ if (homeBtn) {
 window.addEventListener('pagehide', releaseCameraAndMedia);
 window.addEventListener('beforeunload', releaseCameraAndMedia);
 
+// -----------------------------------------------------------------------------
 // 7. TESTING & DIRECT JUMP UTILITIES
+// -----------------------------------------------------------------------------
 export function jumpToPart(partNumber) {
     if (partNumber < 1 || partNumber > 8) return;
     console.log(`🧪 [Test] Langsung melompat ke Chapter 1 Part ${partNumber}...`);
+
+    ensurePartLoaded(partNumber);
+    if (partNumber < 8) preloadPart(partNumber + 1);
 
     state.hasStarted = true;
     state.audioEnabled = true;
@@ -478,14 +413,12 @@ export function jumpToPart(partNumber) {
     if (dom.loadingOverlay) dom.loadingOverlay.classList.add("hidden");
     if (dom.arScene) dom.arScene.classList.add("ready");
 
-    // Buka semua status part sebelum part target
     for (let i = 1; i < partNumber; i++) {
         state[`part${i}Finished`] = true;
     }
     state[`part${partNumber}Finished`] = false;
     state.currentPart = partNumber - 1;
 
-    // Matikan semua suara dan video
     [dom.soundV1, dom.soundV2, dom.soundV3, dom.soundV4, dom.soundV5, dom.soundV6, dom.soundV7, dom.soundV8].forEach(s => {
         if (s) { s.pause(); s.currentTime = 0; s.muted = false; }
     });
@@ -493,7 +426,6 @@ export function jumpToPart(partNumber) {
         if (v) { v.pause(); v.currentTime = 0; }
     });
 
-    // Sembunyikan kontainer lainnya
     const allContainers = [ dom.containerPart1, dom.containerPart2, dom.containerPart3, dom.containerPart4, dom.containerPart5, dom.containerPart6, dom.containerPart7, dom.containerPart8 ];
     allContainers.forEach((c, idx) => {
         if (c && idx + 1 !== partNumber) c.setAttribute("visible", false);
@@ -510,6 +442,7 @@ export function unlockAllParts() {
     console.log("🔓 [Test] Membuka semua marker Chapter 1...");
     for (let i = 1; i <= 8; i++) {
         state[`part${i}Finished`] = true;
+        preloadPart(i);
     }
     state.isMarkerLocked = false;
     state.lockedMarker = null;

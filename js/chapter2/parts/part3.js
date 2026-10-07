@@ -1,5 +1,6 @@
 import { state, dom, videos } from '../state.js';
 import { fadeInContainer, fadeOutContainer, fadeAudioIn, hideAllContainersExcept, isContainerVisible } from '../utils.js';
+import { ensurePartLoaded, preloadPart, releasePartVideos } from '../loader.js';
 
 export async function playPart3() {
     // Pengecekan guard
@@ -8,6 +9,10 @@ export async function playPart3() {
         return;
     }
     
+    // Pastikan aset Part 3 siap & prefetch Part 4 di background
+    ensurePartLoaded(3);
+    preloadPart(4);
+
     state.isMarkerLocked = true;
     state.lockedMarker = 3;
     state.isTransitioning = true;
@@ -100,14 +105,13 @@ async function startPart3Videos() {
         state.isPlaying = false;
         state.part3Finished = true;
         
+        // Bersihkan decoder Part 3 & pastikan Part 4 sudah di-prefetch
+        releasePartVideos(3);
+        preloadPart(4);
+
         if (dom.containerPart3) {
             fadeOutContainer(dom.containerPart3, 250, () => {
-                videos.part3.forEach(v => { 
-                    try { 
-                        v.pause(); 
-                        v.currentTime = 0;
-                    } catch (e) {} 
-                });
+                releasePartVideos(3);
                 console.log('🧹 Layar dibersihkan dan video dimatikan.');
             });
         }

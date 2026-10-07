@@ -1,5 +1,6 @@
 import { state, dom, videos } from '../state.js';
 import { fadeInContainer, fadeOutContainer, fadeAudioIn, hideAllContainersExcept, isContainerVisible } from '../utils.js';
+import { ensurePartLoaded } from '../loader.js';
 
 let isPlayButtonActive = false;
 let isNavigatingQuiz = false;
@@ -256,6 +257,8 @@ export async function playPart8() {
         return;
     }
     
+    ensurePartLoaded(8);
+
     state.isMarkerLocked = true;
     state.lockedMarker = 8;
     state.isTransitioning = true;
