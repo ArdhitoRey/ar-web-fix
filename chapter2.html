@@ -139,8 +139,10 @@
             filterBeta: 0.001;
             warmupTolerance: 3;
             missTolerance: 5;
-            maxTrack: 8;
-        " color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights: true, antialias: true"
+            maxTrack: 1;
+            uiLoading: no;
+            uiError: no;
+        " color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights: false, antialias: false, precision: mediump, powerPreference: high-performance"
         vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
         <a-camera position="0 0 0" look-controls="enabled: false" cursor="rayOrigin: mouse"
             raycaster="objects: .clickable, a-video, a-plane"></a-camera>
@@ -517,94 +519,94 @@
                 muted></video>
 
             <!-- AUDIO -->
-            <audio id="sound-v1" src="./sounds/chapter2/output-sounds/sound-v1.MP3" preload="auto"></audio>
-            <audio id="sound-v2" src="./sounds/chapter2/output-sounds/sound-v2.MP3" preload="auto"></audio>
-            <audio id="sound-v3" src="./sounds/chapter2/output-sounds/sound-v3.MP3" preload="auto"></audio>
-            <audio id="sound-v4" src="./sounds/chapter2/output-sounds/sound-v4.MP3" preload="auto"></audio>
-            <audio id="sound-v5" src="./sounds/chapter2/output-sounds/sound-v5.MP3" preload="auto"></audio>
-            <audio id="sound-v6" src="./sounds/chapter2/output-sounds/sound-v6.MP3" preload="auto"></audio>
-            <audio id="sound-v7" src="./sounds/chapter2/output-sounds/sound-v7.MP3" preload="auto"></audio>
-            <audio id="sound-v8" src="./sounds/chapter2/output-sounds/sound-v8.MP3" preload="auto"></audio>
+            <audio id="sound-v1" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/sounds/chapter2/output-sounds/sound-v1.MP3" preload="auto"></audio>
+            <audio id="sound-v2" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/sounds/chapter2/output-sounds/sound-v2.MP3" preload="auto"></audio>
+            <audio id="sound-v3" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/sounds/chapter2/output-sounds/sound-v3.MP3" preload="auto"></audio>
+            <audio id="sound-v4" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/sounds/chapter2/output-sounds/sound-v4.MP3" preload="auto"></audio>
+            <audio id="sound-v5" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/sounds/chapter2/output-sounds/sound-v5.MP3" preload="auto"></audio>
+            <audio id="sound-v6" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/sounds/chapter2/output-sounds/sound-v6.MP3" preload="auto"></audio>
+            <audio id="sound-v7" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/sounds/chapter2/output-sounds/sound-v7.MP3" preload="auto"></audio>
+            <audio id="sound-v8" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/sounds/chapter2/output-sounds/sound-v8.MP3" preload="auto"></audio>
 
             <!-- Quiz Assets for Seamless Part 8 Transition -->
-            <img id="img-quiz-pertanyaan-1" src="./compressed_ultra-videos/chapter2/quiz/quiz1/pertanyaan.PNG"
+            <img id="img-quiz-pertanyaan-1" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz1/pertanyaan.PNG"
                 crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-2" src="./compressed_ultra-videos/chapter2/quiz/quiz2/pertanyaan.PNG"
+            <img id="img-quiz-pertanyaan-2" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz2/pertanyaan.PNG"
                 crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-3" src="./compressed_ultra-videos/chapter2/quiz/quiz3/pertanyaan.PNG"
+            <img id="img-quiz-pertanyaan-3" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz3/pertanyaan.PNG"
                 crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-4" src="./compressed_ultra-videos/chapter2/quiz/quiz4/pertanyaan.PNG"
+            <img id="img-quiz-pertanyaan-4" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz4/pertanyaan.PNG"
                 crossorigin="anonymous" />
-            <img id="img-quiz-pertanyaan-5" src="./compressed_ultra-videos/chapter2/quiz/quiz5/pertanyaan.PNG"
+            <img id="img-quiz-pertanyaan-5" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz5/pertanyaan.PNG"
                 crossorigin="anonymous" />
 
             <img id="img-quiz-next-btn" src="./addon-image/quiz/next-button-crop.png" crossorigin="anonymous" />
             <img id="img-quiz-home-btn" src="./addon-image/quiz/home-button-crop.png" crossorigin="anonymous" />
 
-            <video id="vid-quiz1-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz1/video/benar.mp4"
+            <video id="vid-quiz1-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz1/video/benar.mp4"
                 preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz1-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz1/video/salah.mp4"
-                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-
-            <video id="vid-quiz2-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz2/video/benar.mp4"
-                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz2-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz2/video/salah.mp4"
+            <video id="vid-quiz1-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz1/video/salah.mp4"
                 preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
-            <video id="vid-quiz3-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz3/video/benar.mp4"
+            <video id="vid-quiz2-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz2/video/benar.mp4"
                 preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz3-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz3/video/salah.mp4"
-                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-
-            <video id="vid-quiz4-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz4/video/benar.mp4"
-                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz4-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz4/video/salah.mp4"
+            <video id="vid-quiz2-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz2/video/salah.mp4"
                 preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
-            <video id="vid-quiz5-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz5/video/benar.mp4"
+            <video id="vid-quiz3-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz3/video/benar.mp4"
                 preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-            <video id="vid-quiz5-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz5/video/salah.mp4"
-                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
-
-            <video id="vid-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/video/score.mp4"
+            <video id="vid-quiz3-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz3/video/salah.mp4"
                 preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
 
-            <audio id="sound-quiz1-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz1/sound/pertanyaan.mp3"
+            <video id="vid-quiz4-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz4/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz4-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz4/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+
+            <video id="vid-quiz5-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz5/video/benar.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+            <video id="vid-quiz5-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz5/video/salah.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+
+            <video id="vid-quiz-score" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter1/quiz/final-scores/video/score.mp4"
+                preload="auto" crossorigin="anonymous" playsinline webkit-playsinline muted></video>
+
+            <audio id="sound-quiz1-pertanyaan" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz1/sound/pertanyaan.mp3"
                 preload="auto"></audio>
-            <audio id="sound-quiz1-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz1/sound/benar.mp3"
+            <audio id="sound-quiz1-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz1/sound/benar.mp3"
                 preload="auto"></audio>
-            <audio id="sound-quiz1-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz1/sound/salah.mp3"
+            <audio id="sound-quiz1-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz1/sound/salah.mp3"
                 preload="auto"></audio>
 
-            <audio id="sound-quiz2-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz2/sound/pertanyaan.mp3"
+            <audio id="sound-quiz2-pertanyaan" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz2/sound/pertanyaan.mp3"
                 preload="auto"></audio>
-            <audio id="sound-quiz2-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz2/sound/benar.mp3"
+            <audio id="sound-quiz2-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz2/sound/benar.mp3"
                 preload="auto"></audio>
-            <audio id="sound-quiz2-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz2/sound/salah.mp3"
-                preload="auto"></audio>
-
-            <audio id="sound-quiz3-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz3/sound/pertanyaan.mp3"
-                preload="auto"></audio>
-            <audio id="sound-quiz3-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz3/sound/benar.mp3"
-                preload="auto"></audio>
-            <audio id="sound-quiz3-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz3/sound/salah.mp3"
+            <audio id="sound-quiz2-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz2/sound/salah.mp3"
                 preload="auto"></audio>
 
-            <audio id="sound-quiz4-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz4/sound/pertanyaan.mp3"
+            <audio id="sound-quiz3-pertanyaan" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz3/sound/pertanyaan.mp3"
                 preload="auto"></audio>
-            <audio id="sound-quiz4-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz4/sound/benar.mp3"
+            <audio id="sound-quiz3-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz3/sound/benar.mp3"
                 preload="auto"></audio>
-            <audio id="sound-quiz4-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz4/sound/salah.mp3"
-                preload="auto"></audio>
-
-            <audio id="sound-quiz5-pertanyaan" src="./compressed_ultra-videos/chapter2/quiz/quiz5/sound/pertanyaan.mp3"
-                preload="auto"></audio>
-            <audio id="sound-quiz5-benar" src="./compressed_ultra-videos/chapter2/quiz/quiz5/sound/benar.mp3"
-                preload="auto"></audio>
-            <audio id="sound-quiz5-salah" src="./compressed_ultra-videos/chapter2/quiz/quiz5/sound/salah.mp3"
+            <audio id="sound-quiz3-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz3/sound/salah.mp3"
                 preload="auto"></audio>
 
-            <audio id="sound-quiz-score" src="./compressed_ultra-videos/chapter1/quiz/final-scores/sound/sound.mp3"
+            <audio id="sound-quiz4-pertanyaan" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz4/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz4-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz4/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz4-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz4/sound/salah.mp3"
+                preload="auto"></audio>
+
+            <audio id="sound-quiz5-pertanyaan" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz5/sound/pertanyaan.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz5-benar" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz5/sound/benar.mp3"
+                preload="auto"></audio>
+            <audio id="sound-quiz5-salah" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter2/quiz/quiz5/sound/salah.mp3"
+                preload="auto"></audio>
+
+            <audio id="sound-quiz-score" src="https://wwlishzxhmshagfuywyd.supabase.co/storage/v1/object/public/ar-assets/compressed_ultra-videos/chapter1/quiz/final-scores/sound/sound.mp3"
                 preload="auto"></audio>
         </a-assets>
     </a-scene>
