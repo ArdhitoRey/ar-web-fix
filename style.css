@@ -238,14 +238,26 @@ a-video canvas {
     justify-content: center;
     align-items: center;
     outline: none;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.start-button:disabled {
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
 }
 
 .start-button:not(:disabled),
 .start-button.ready {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    opacity: 1 !important;
     background: linear-gradient(180deg, #ffbe0b 0%, #fb5607 100%) !important;
     color: #ffffff !important;
     border: 2.5px solid #ffffff !important;
-    cursor: pointer !important;
     box-shadow: 0 8px 24px rgba(251, 86, 7, 0.45),
                 0 0 16px rgba(255, 190, 11, 0.6),
                 inset 0 2px 3px rgba(255, 255, 255, 0.8) !important;

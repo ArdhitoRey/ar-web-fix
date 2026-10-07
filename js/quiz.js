@@ -357,7 +357,14 @@ if (isStandalone) {
     }, 1800);
 
     if (startButton) {
-        startButton.addEventListener('click', () => {
+        const handleStartQuiz = (e) => {
+            if (startButton.disabled || quizState === 'LOADING') {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                return;
+            }
             // Segera buka kamera tanpa delay black screen
             if (loadingOverlay) {
                 loadingOverlay.classList.add('hidden');
@@ -370,7 +377,9 @@ if (isStandalone) {
             }
 
             executeStartQuiz();
-        });
+        };
+        startButton.addEventListener('click', handleStartQuiz);
+        startButton.addEventListener('touchend', handleStartQuiz);
     }
 }
 

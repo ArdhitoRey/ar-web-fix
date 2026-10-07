@@ -284,12 +284,19 @@ function executeStartChapter2() {
 
 // 4. START BUTTON LISTENER
 if (dom.startButton) {
-    const handleStartChapter2 = () => {
-        if (state.hasStarted) return;
+    const handleStartChapter2 = (e) => {
+        if (!isStartUnlocked || dom.startButton.disabled || state.hasStarted) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            console.log("⏳ [Chapter 2] Tombol Mulai belum aktif: Menunggu loading 100%...");
+            return;
+        }
         executeStartChapter2();
     };
     dom.startButton.addEventListener("click", handleStartChapter2);
-    dom.startButton.addEventListener("touchstart", handleStartChapter2, { passive: true });
+    dom.startButton.addEventListener("touchend", handleStartChapter2);
 }
 
 // -----------------------------------------------------------------------------
