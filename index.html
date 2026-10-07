@@ -212,13 +212,16 @@
             background-image: url('./addon-image/main-menu/main-menu.PNG');
             z-index: 15;
             opacity: 0;
-            transform: scale(0.96);
+            transform: scale(0.96) translateZ(0);
+            -webkit-transform: scale(0.96) translateZ(0);
             pointer-events: none;
+            isolation: isolate;
         }
 
         #mainMenuScreen.active {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) translateZ(0);
+            -webkit-transform: scale(1) translateZ(0);
             pointer-events: auto;
         }
 
@@ -229,24 +232,38 @@
             cursor: pointer;
             text-decoration: none;
             touch-action: manipulation;
-            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.22s ease;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            will-change: transform, opacity;
+            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .menu-btn-img {
             width: 100%;
             height: auto;
             display: block;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
             filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
-            transition: transform 0.2s ease, filter 0.2s ease;
+            transition: transform 0.2s ease, filter 0.2s ease, -webkit-filter 0.2s ease;
         }
 
         .menu-btn:hover .menu-btn-img {
-            transform: scale(1.05);
+            transform: scale(1.05) translateZ(0);
+            -webkit-transform: scale(1.05) translateZ(0);
+            -webkit-filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.7)) drop-shadow(0 10px 22px rgba(0, 0, 0, 0.45));
             filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.7)) drop-shadow(0 10px 22px rgba(0, 0, 0, 0.45));
         }
 
         .menu-btn:active .menu-btn-img {
-            transform: scale(0.95);
+            transform: scale(0.95) translateZ(0);
+            -webkit-transform: scale(0.95) translateZ(0);
+            -webkit-filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
             filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
         }
 
@@ -274,12 +291,14 @@
         @keyframes menuBounceIn {
             0% {
                 opacity: 0;
-                transform: translateY(30px) scale(0.9);
+                transform: translate3d(0, 30px, 0) scale(0.9);
+                -webkit-transform: translate3d(0, 30px, 0) scale(0.9);
             }
 
             100% {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translate3d(0, 0, 0) scale(1);
+                -webkit-transform: translate3d(0, 0, 0) scale(1);
             }
         }
 
@@ -339,6 +358,11 @@
             touch-action: manipulation;
             user-select: none;
             text-decoration: none;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            will-change: transform, opacity;
         }
 
         .btn-bubble-control:hover {
